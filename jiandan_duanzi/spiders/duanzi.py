@@ -89,11 +89,16 @@ class DuanziSpider(scrapy.Spider):
 
         #将段子的json保存到文件
         save_json_list_str(page_num, crawl_time, duan_list)
+
+        if page_num == '1':
+            page_num = '0'
+
         set_current_download_page_num(page_num)
 
         next_url = "".join(selector.xpath(
             "/html/body/div[@id='wrapper']/div[@id='body']/div[@id='content']/div[@id='comments']/div[@class='comments'][1]/div[@class='cp-pagenavi']/a[@class='previous-comment-page']/@href"
         ).extract())
+
 
         if next_url:
             yield self.gen_next_request(next_url)
