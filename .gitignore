@@ -1,0 +1,26 @@
+
+.idea
+/*/.bundle
+
+# Ignore the default SQLite database.
+/*/db/*.sqlite3
+
+# Ignore all logfiles and tempfiles.
+*.log
+*.pyc
+config.cfg
+/*/tmp
+/*/.idea/*
+classes
+.project
+.classpath
+.settings
+.DS_Store
+target
+bin
+*.rdb
+database.yml
+/*/public/*
+*.iml
+rebel.xml
+generatorConfig.xml
