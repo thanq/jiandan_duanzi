@@ -1,4 +1,6 @@
 # -*- coding: utf-8 -*-
+
+import random
 import scrapy
 from scrapy.http import Request,FormRequest
 from scrapy.selector import Selector
@@ -9,6 +11,15 @@ from util.fileutil import save_json_list_str
 from util.configutil import get_current_download_page_num, set_current_download_page_num
 
 
+def get_header():
+
+    _header = HEADER.copy()
+
+    # _header['Cookie'] = "Cookie:469981701=2; comment_author_596e6fb28c1bb47f949e65e1ae03f7f5=thanq; comment_author_email_596e6fb28c1bb47f949e65e1ae03f7f5=thanq%40126.com; human1353482284=1; voted_comments_3065075=1; 469981701=2; _ga=GA1.2.1939959636.1436526292; _gat=1; Hm_lvt_fd93b7fb546adcfbcf80c4fc2b54da2c=1455016396; Hm_lpvt_fd93b7fb546adcfbcf80c4fc2b54da2c=1455790356"
+    _header['Cookie'] = "4699817" + str(random.randint(12, 90))+ "=4; Hm_lvt_fd93b7fb546adcfbcf80c4fc2b54da2c=1455790786; Hm_lpvt_fd93b7fb546adcfbcf80c4fc2b54da2c=1455790786; _ga=GA1.2.1070108839.1455790786; _gat=1"
+    _header['User-Agent'] = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_3) AppleWebKit/"+ str(random.randint(120, 550)) + "." + str(random.randint(12, 90)) + " (KHTML, like Gecko) Chrome/48.0.2564." + str(random.randint(420, 750))  + " Safari/537.36"
+
+    return _header
 
 class DuanziSpider(scrapy.Spider):
 
@@ -35,14 +46,17 @@ class DuanziSpider(scrapy.Spider):
             pass
 
         for i, url in enumerate(self.start_urls):
+
+            header = get_header()
+
             yield FormRequest(url,
                               # meta = {'cookiejar': i},
-                              headers = HEADER,
+                              headers = get_header(),
                               # cookies = COOKIES,
                               callback = self.parse_item)
 
     def gen_next_request(self, url):
-        return FormRequest(url,  headers=HEADER, callback=self.parse_item)
+        return FormRequest(url,  headers=get_header(), callback=self.parse_item)
 
     def gen_duanzi_item_by_selector(self, dz_selector):
         #作者

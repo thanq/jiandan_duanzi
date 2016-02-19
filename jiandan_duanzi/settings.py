@@ -43,11 +43,11 @@ HEADER={
 "Accept-Language":"zh-CN,zh;q=0.8",
 "Cache-Control":"no-cache",
 "Connection":"keep-alive",
-"Cookie":"1353482284=29; comment_author_596e6fb28c1bb47f949e65e1ae03f7f5=thanq; comment_author_email_596e6fb28c1bb47f949e65e1ae03f7f5=thanq%40126.com; 1353482284=20; Hm_lvt_fd93b7fb546adcfbcf80c4fc2b54da2c=1449491580; Hm_lpvt_fd93b7fb546adcfbcf80c4fc2b54da2c=1450669087; _ga=GA1.2.1939959636.1436526292",
+"Cookie":"469981701=1; Hm_lvt_fd93b7fb546adcfbcf80c4fc2b54da2c=1455790786; Hm_lpvt_fd93b7fb546adcfbcf80c4fc2b54da2c=1455790786; _ga=GA1.2.1070108839.1455790786; _gat=1",
 "Host":"jandan.net",
 "Pragma":"no-cache",
 "Upgrade-Insecure-Requests":"1",
-"User-Agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/47.0.2526.106 Safari/537.36"
+"User-Agent":"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/48.0.2564.103 Safari/537.36"
 }
 
 DEFAULT_REQUEST_HEADERS = HEADER

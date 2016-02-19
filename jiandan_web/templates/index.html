@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8"/>
+    <title>jqPaginator</title>
+    <link type="text/css" rel="stylesheet"
+          href="http://cdn.staticfile.org/twitter-bootstrap/3.1.1/css/bootstrap.min.css"/>
+    <link href="http://cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.css" rel="stylesheet">
+    <style>
+        .customBootstrap .pagination > li > a {
+            margin-right: 5px;
+            border-radius: 2px;
+            background: #fff;
+            color: #333;
+            border-color: #ccc;
+            padding: 6px 15px
+        }
+
+        .customBootstrap .pagination > li > a:hover, .customBootstrap .pagination > li > a:focus {
+            color: #fff;
+            background: #fb9400;
+            border-color: #fb9400
+        }
+
+        .customBootstrap .pagination > .active > a, .customBootstrap .pagination > .active > a:hover, .customBootstrap .pagination > .active > a:focus {
+            color: #fff;
+            background: #fb9400;
+            border-color: #fb9400
+        }
+
+        .package-extra-info {
+            padding-top: 7px;
+            font-size: 12px;
+            color: #aaa;
+        }
+        .fa-star:before {
+            content: "\f087";
+            /*content: "\f005";*/
+        }
+
+        .list-group-item {
+            background-color: #ffffff;
+            border: 1px solid #ecf0f1;
+            font-size: 1.1em;
+            padding: 20px 20px;
+        }
+
+        /*.inside .text ul#purple li:hover {*/
+        /*background-color: #EFE7A4;*/
+        /*color: #9F9F9F;*/
+        /*}*/
+
+        /*.inside .text ul#purple li {*/
+        /*margin: 0px 0px 0px -43px;*/
+        /*list-style-type: none;*/
+        /*display: block;*/
+        /*padding: 2px 10px;*/
+        /*border-bottom: 1px solid #DFDFDF;*/
+        /*}*/
+
+
+    </style>
+</head>
+<body style="padding:10px;">
+
+<div class="demo customBootstrap">
+    <ul class="pagination  pagination-demo"></ul>
+</div>
+
+<!--<ul>-->
+<!--# for href, caption in [('index.html', 'Index'),-->
+<!--('about.html', 'About')]:-->
+<!--<li><a href="{{ href }}">{{ caption }}</a></li>-->
+<!--# endfor-->
+<!--</ul>-->
+<div class="list-group">
+    {% for item in seq -%}
+    <a  href="javascript:void(0)" class="list-group-item">
+        <div class="row">
+            <div class="col-md-2 col-sm-3 col-xs-4">
+               <h4>No.{{ item.rank | safe }}</h4>
+                <br/>
+                <!--<span><i class="fa fa-star"></i> {{ item.zan | safe }}赞</span>-->
+
+
+            <div class="package-extra-info ">
+                <span><i class="fa fa-star"></i>{{ item.zan | safe }}赞</span>
+                <br/>
+                {{ item.publish_time | safe }}
+
+            </div>
+
+
+            </div>
+            <div class="col-md-10  col-sm-9 col-xs-8">
+                {{ item.content | safe }}
+            </div>
+
+            <div class="package-extra-info col-md-10 col-md-offset-2 col-sm-9 col-sm-offset-3 col-xs-8 col-xs-offset-4">
+            <!--<div class="package-extra-info col-md-2 col-xs-12">-->
+                <span>
+                    <!--<i class="fa fa-star"></i>-->
+                    oo:{{ item.zan | safe }}  &nbsp;  xx:{{ item.against | safe }}
+                </span>
+            </div>
+        </div>
+    </a>
+    {%- endfor %}
+</div>
+
+
+<p id="pagination-demo-text"></p>
+
+<div class="demo customBootstrap">
+    <ul class="pagination  pagination-demo"></ul>
+</div>
+
+<div id="check_load"></div>
+<script type="text/javascript" src="/static/js/jquery.min.js"></script>
+<script type="text/javascript" src="/static/js/jqPaginator.js"></script>
+<script type="text/javascript">
+    var currentPage = {{page}};
+    var totalCounts = {{total_counts}};
+    var pageSize = {{page_size}};
+
+
+    // pagination : http://jqpaginator.keenwon.com/
+    $(".pagination-demo").jqPaginator({
+//        totalPages: 0,
+        totalCounts: totalCounts,
+        pageSize: pageSize,
+        visiblePages: 1,
+        currentPage: currentPage,
+        first: '<li class="first"><a href="javascript:void(0);"><<首页<\/a><\/li>',
+        prev: '<li class="prev"><a href="javascript:void(0);"><前一页<\/a><\/li>',
+        next: '<li class="next"><a href="javascript:void(0);">后一页\><\/a><\/li>',
+        last: '<li class="last"><a href="javascript:void(0);">第\{\{totalPages\}\}页<\/a><\/li>',
+        page: '<li class="page"><a href="javascript:void(0);">\{\{page\}\}<\/a><\/li>',
+        onPageChange: function (n) {
+            if (n != currentPage) {
+                location.href = 'http://' + location.host + "/?page=" + n;
+//            $("#pagination-demo-text").html("当前第" + n + "页");
+            }
+        }
+    });
+
+
+</script>
+</body>
+</html>
