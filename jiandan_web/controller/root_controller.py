@@ -9,7 +9,7 @@ from datacenter.duanzi_web_service import get_key_when_no_today_key
 from util.jsonutil import json_to_list
 
 
-@app.route('/')
+@app.route('/duan')
 def index():
     page_size = app.config.get("PAGE_SIZE")
     page = request.values.get('page')

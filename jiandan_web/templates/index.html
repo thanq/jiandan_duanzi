@@ -34,6 +34,7 @@
             font-size: 12px;
             color: #aaa;
         }
+
         .fa-star:before {
             content: "\f087";
             /*content: "\f005";*/
@@ -76,36 +77,36 @@
 <!--</ul>-->
 <div class="list-group">
     {% for item in seq -%}
-    <a  href="javascript:void(0)" class="list-group-item">
-        <div class="row">
-            <div class="col-md-2 col-sm-3 col-xs-4">
-               <h4>No.{{ item.rank | safe }}</h4>
-                <br/>
-                <!--<span><i class="fa fa-star"></i> {{ item.zan | safe }}赞</span>-->
+        <a href="javascript:void(0)" class="list-group-item">
+            <div class="row">
+                <div class="col-md-2 col-sm-3 col-xs-4">
+                    <h4>No.{{ item.rank | safe }}</h4>
+                    <br/>
+                    <!--<span><i class="fa fa-star"></i> {{ item.zan | safe }}赞</span>-->
 
 
-            <div class="package-extra-info ">
-                <span><i class="fa fa-star"></i>{{ item.zan | safe }}赞</span>
-                <br/>
-                {{ item.publish_time | safe }}
+                    <div class="package-extra-info ">
+                        <span><i class="fa fa-star"></i>{{ item.zan | safe }}赞</span>
+                        <br/>
+                        {{ item.publish_time | safe }}
 
-            </div>
+                    </div>
 
 
-            </div>
-            <div class="col-md-10  col-sm-9 col-xs-8">
-                {{ item.content | safe }}
-            </div>
+                </div>
+                <div class="col-md-10  col-sm-9 col-xs-8">
+                    {{ item.content | safe }}
+                </div>
 
-            <div class="package-extra-info col-md-10 col-md-offset-2 col-sm-9 col-sm-offset-3 col-xs-8 col-xs-offset-4">
-            <!--<div class="package-extra-info col-md-2 col-xs-12">-->
+                <div class="package-extra-info col-md-10 col-md-offset-2 col-sm-9 col-sm-offset-3 col-xs-8 col-xs-offset-4">
+                    <!--<div class="package-extra-info col-md-2 col-xs-12">-->
                 <span>
                     <!--<i class="fa fa-star"></i>-->
                     oo:{{ item.zan | safe }}  &nbsp;  xx:{{ item.against | safe }}
                 </span>
+                </div>
             </div>
-        </div>
-    </a>
+        </a>
     {%- endfor %}
 </div>
 
@@ -139,7 +140,7 @@
         page: '<li class="page"><a href="javascript:void(0);">\{\{page\}\}<\/a><\/li>',
         onPageChange: function (n) {
             if (n != currentPage) {
-                location.href = 'http://' + location.host + "/?page=" + n;
+                location.href = 'http://' + location.host + "/duan?page=" + n;
 //            $("#pagination-demo-text").html("当前第" + n + "页");
             }
         }
