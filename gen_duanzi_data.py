@@ -8,10 +8,10 @@ from datacenter.duanzi_gen_service import add_duanzi_json_to_all_duanzi_json_dat
 
 
 for duanzi_dict in get_all_duanzi_dict_list():
-    # add_duanzi_json_to_all_duanzi_json_data(duanzi_dict['floor'], dict_to_json(duanzi_dict))
-    # add_duanzi_zan_floor_redis_sort_set(duanzi_dict['zan'], duanzi_dict['floor'])
+    add_duanzi_json_to_all_duanzi_json_data(duanzi_dict['floor'], dict_to_json(duanzi_dict))
+    add_duanzi_zan_floor_redis_sort_set(duanzi_dict['zan'], duanzi_dict['floor'])
     pass
-# gen_top_rank_duanzi_floor_list()
+gen_top_rank_duanzi_floor_list()
 rename_top_list_name_for_web()
 
 
