@@ -27,7 +27,7 @@ duanzi_every_day_more_than_100_zan_hash_name = 'duanzi_every_day_more_than_100_z
 
 
 
-if os.environ.get('REDIS_HOST') != "PRODUCTION":
+if os.environ.get('PRODUCTION') != "PRODUCTION":
      redis_conf_dict = {
         'host':'localhost',
         'port':6379,
