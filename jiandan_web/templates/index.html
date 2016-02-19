@@ -47,6 +47,10 @@
             padding: 20px 20px;
         }
 
+        li.displaynone {
+            display:none;
+        }
+
         /*.inside .text ul#purple li:hover {*/
         /*background-color: #EFE7A4;*/
         /*color: #9F9F9F;*/
@@ -128,10 +132,11 @@
 
     // pagination : http://jqpaginator.keenwon.com/
     $(".pagination-demo").jqPaginator({
-//        totalPages: 0,
+        totalPages: totalCounts/pageSize,
         totalCounts: totalCounts,
         pageSize: pageSize,
         visiblePages: 1,
+        disableClass: 'displaynone',
         currentPage: currentPage,
         first: '<li class="first"><a href="javascript:void(0);"><<首页<\/a><\/li>',
         prev: '<li class="prev"><a href="javascript:void(0);"><前一页<\/a><\/li>',
