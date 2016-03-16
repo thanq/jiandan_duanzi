@@ -20,8 +20,7 @@ def crawl_duanzi():
     process.crawl(DuanziSpider)
     process.start() # the script will block here until the crawling is finished
 
-    for i in range(100):
-        print '@'*i
+    print '@'*100
     pass
 
 
