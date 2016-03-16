@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import random
+import traceback
 import scrapy
 from scrapy.http import Request,FormRequest
 from scrapy.selector import Selector
@@ -9,6 +10,7 @@ from jiandan_duanzi.settings import HEADER, COOKIES
 from jiandan_duanzi.items import DuanziItem, JiandanDuanziPageItem
 from util.fileutil import save_json_list_str
 from util.configutil import get_current_download_page_num, set_current_download_page_num
+
 
 
 def get_header():
@@ -67,8 +69,15 @@ class DuanziSpider(scrapy.Spider):
         url = ''.join( dz_selector.xpath("//div[@class='text']/span[@class='righttext']/a/@href").extract() )
         # 内容
         content = ''.join( dz_selector.xpath("//div[@class='text']/p/text()").extract() )
+        zan, against = u'0', u'0'
         #赞/反对
-        zan, against =  dz_selector.xpath("//div[@class='text']/div/span/text()").extract()
+        try:
+            zan, against =  dz_selector.xpath("//div[@class='text']/div/span/text()").extract()
+        except:
+            xp = dz_selector.xpath("//div[@class='text']/div/span/text()")
+            print xp
+            print str(xp)
+            print traceback.format_exc()
         #发布时间
         publish_time = ''.join( dz_selector.xpath("//div[@class='author']/small/a/text()").extract() )
 

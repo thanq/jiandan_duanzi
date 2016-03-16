@@ -23,3 +23,4 @@ database.yml
 *.iml
 rebel.xml
 generatorConfig.xml
+*test*
