@@ -35,3 +35,10 @@ class DuanziItem(scrapy.Item):
     def __repr__(self):
         return self.tojson()
 
+class New100ZanDuanziItem(scrapy.Item):
+    content = scrapy.Field()
+    zan = scrapy.Field()
+    floor = scrapy.Field()
+
+
+

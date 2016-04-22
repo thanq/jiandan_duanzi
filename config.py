@@ -20,9 +20,28 @@ duanzi_floor_with_rank_for_web_top_list_name = 'duanzi_floor_with_rank_for_web_t
 all_floor_duanzi_hash_name = 'all_floor_duanzi_hash'
 
 
-duanzi_more_than_100_zan_list_name = 'duanzi_more_than_100_zan_list'
-duanzi_all_more_than_100_zan_hash_name = 'duanzi_all_more_than_100_zan_hash'
-duanzi_every_day_more_than_100_zan_hash_name = 'duanzi_every_day_more_than_100_zan_hash'
+
+#每日新段子(新增的破百段子)
+'''
+1, 维护一个所有破百段子的列表
+2, 判断是否在已经存在的破百段子列表里存在, 如果不存在, 加入破百段子列表, 然后在加入到今日新破百段子列表
+
+结构: 全量破百段子列表 <段子floor - 日期>
+     今日段子列表 <日期 - 段子floor数组>
+
+新段子
+    一个记录所有 破白段子(floor)的 hash
+    一个按日期, 记录所有新段子的 list : date <-> json[]
+    抓取数据: 该批次内破百段子
+        --> 是否在存量破百段子中
+            --> 如果不在, 加入
+
+'''
+
+#所有百赞段子 floor
+duanzi_more_than_100_zan_floor_hash = 'duanzi_more_than_100_zan_floor_hash'
+#某天新段list
+duanzi_more_than_100_zan_list_pre = 'duanzi_more_than_100_zan_list_'
 
 
 

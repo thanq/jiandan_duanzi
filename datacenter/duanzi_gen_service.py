@@ -1,11 +1,12 @@
 # -*- coding:utf-8 -*-
 
-from datetime import datetime
 from util.jsonutil import json_to_dict, dict_to_json, list_to_json, json_to_list
+from util.dateutil import date_str_now_ymd
 
 from datacenter import redis_clent as r
-from config import duanzi_floor_with_rank_top_list_name, duanzi_zan_floor_redis_sort_set_name, duanzi_floor_with_rank_for_web_top_list_name,\
-    duanzi_all_more_than_100_zan_hash_name, duanzi_every_day_more_than_100_zan_hash_name , all_floor_duanzi_hash_name
+from config import duanzi_floor_with_rank_top_list_name, duanzi_zan_floor_redis_sort_set_name,\
+    duanzi_floor_with_rank_for_web_top_list_name,all_floor_duanzi_hash_name
+
 
 def add_duanzi_json_to_all_duanzi_json_data(floor, json_str):
     r.hset(all_floor_duanzi_hash_name, floor, json_str)
@@ -35,54 +36,73 @@ def rename_top_list_name_for_web():
 
 
 
+'''
+新段子
+    一个记录所有 破白段子(floor)的 hash
+    一个按日期, 记录所有新段子的 list : date <-> json[]
+    抓取数据: 该批次内破百段子
+        --> 是否在存量破百段子中
+            --> 如果不在, 加入
 
+'''
 
+from config import duanzi_more_than_100_zan_floor_hash, duanzi_more_than_100_zan_list_pre
 
-
-
-
-
-
-def gen_today_top_duanzi_to_hash():
-    today_str = datetime.now().strftime('%Y-%m-%d')
-    del_today_top_duanzi_in_all_more_than_100_zan_hash(today_str)
-
-    today_list = []
-    l = r.zrangebyscore(name=duanzi_zan_floor_redis_sort_set_name, min=100, max=1000000, withscores=True, score_cast_func=int )
-    old_top_dic = r.hgetall(duanzi_all_more_than_100_zan_hash_name)
-    top_list = l[::-1]
-    # if just_test(top_list):return
-    for i in range(0, len(top_list)):
-        dict_str =  top_list[i][0]
-        item = json_to_dict(dict_str)
-        floor = item.get('floor')
-        if not old_top_dic.has_key(floor):
-            #add to today list
-            today_list.append(item)
-
-    r.hset(duanzi_every_day_more_than_100_zan_hash_name, today_str, list_to_json(today_list))
-
-def del_today_top_duanzi_in_all_more_than_100_zan_hash(day):
-    if r.hexists(duanzi_every_day_more_than_100_zan_hash_name, day):
-        today_duan_json = r.hget(duanzi_every_day_more_than_100_zan_hash_name, day)
-        today_duan_list = json_to_list(today_duan_json)
-        for duan_floor_dict in today_duan_list:
-            floor = duan_floor_dict.get('floor')
-            #删除今天的楼
-            r.hdel(duanzi_all_more_than_100_zan_hash_name, floor)
-            pass
-
-
-def duanzi_top_list_gen_fail():
-    return r.llen(duanzi_floor_with_rank_top_list_name) < 10000
-
-def gen_toplist():
+def check_and_save_morethan100zan_duanzi(floor, content):
+    if floor is not None  and content is not None:
+        todaystr = date_str_now_ymd()
+        if not r.hexists(duanzi_more_than_100_zan_floor_hash, floor):
+            r.hset(duanzi_more_than_100_zan_floor_hash, floor,  True)
+            r.lpush(duanzi_more_than_100_zan_list_pre + todaystr, content)
+        pass
     pass
 
-def get_key_when_no_today_key():
-    return r.hkeys(duanzi_every_day_more_than_100_zan_hash_name)[0]
 
-def get_oneday_100zan_req(day):
-    return r.hget(duanzi_every_day_more_than_100_zan_hash_name,day)
+
+
+
+
+# def gen_today_top_duanzi_to_hash():
+#     today_str = datetime.now().strftime('%Y-%m-%d')
+#     del_today_top_duanzi_in_all_more_than_100_zan_hash(today_str)
+#
+#     today_list = []
+#     l = r.zrangebyscore(name=duanzi_zan_floor_redis_sort_set_name, min=100, max=1000000, withscores=True, score_cast_func=int )
+#     old_top_dic = r.hgetall(duanzi_all_more_than_100_zan_hash_name)
+#     top_list = l[::-1]
+#     # if just_test(top_list):return
+#     for i in range(0, len(top_list)):
+#         dict_str =  top_list[i][0]
+#         item = json_to_dict(dict_str)
+#         floor = item.get('floor')
+#         if not old_top_dic.has_key(floor):
+#             #add to today list
+#             today_list.append(item)
+#
+#     r.hset(duanzi_every_day_more_than_100_zan_hash_name, today_str, list_to_json(today_list))
+#
+# def del_today_top_duanzi_in_all_more_than_100_zan_hash(day):
+#     if r.hexists(duanzi_every_day_more_than_100_zan_hash_name, day):
+#         today_duan_json = r.hget(duanzi_every_day_more_than_100_zan_hash_name, day)
+#         today_duan_list = json_to_list(today_duan_json)
+#         for duan_floor_dict in today_duan_list:
+#             floor = duan_floor_dict.get('floor')
+#             #删除今天的楼
+#             r.hdel(duanzi_all_more_than_100_zan_hash_name, floor)
+#             pass
+#
+#
+# def duanzi_top_list_gen_fail():
+#     return r.llen(duanzi_floor_with_rank_top_list_name) < 10000
+#
+# def gen_toplist():
+#     pass
+#
+#
+# def get_key_when_no_today_key():
+#     return r.hkeys(duanzi_every_day_more_than_100_zan_hash_name)[0]
+#
+# def get_oneday_100zan_req(day):
+#     return r.hget(duanzi_every_day_more_than_100_zan_hash_name,day)
 
 

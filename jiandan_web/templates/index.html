@@ -6,8 +6,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
     <title>煎蛋段子榜</title>
     <link type="text/css" rel="stylesheet" href="/static/css/bootstrap.min.css"/>
-    <link href="http://cdn.bootcss.com/font-awesome/4.3.0/css/font-awesome.css" rel="stylesheet">
     <style>
+
+        @font-face {
+            font-family: 'FontAwesome';
+            src: url('/static/fonts/fontawesome-webfont.woff2?v=4.6.0') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        .fa {
+            display: inline-block;
+            font: normal normal normal 14px/1 FontAwesome;
+            font-size: inherit;
+            text-rendering: auto;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
         .customBootstrap .pagination > li > a {
             margin-right: 5px;
             border-radius: 2px;
@@ -48,7 +64,7 @@
         }
 
         li.displaynone {
-            display:none;
+            display: none;
         }
 
         /*.inside .text ul#purple li:hover {*/
@@ -132,7 +148,7 @@
 
     // pagination : http://jqpaginator.keenwon.com/
     $(".pagination-demo").jqPaginator({
-        totalPages: totalCounts/pageSize,
+        totalPages: totalCounts / pageSize,
         totalCounts: totalCounts,
         pageSize: pageSize,
         visiblePages: 1,

@@ -4,8 +4,6 @@ from jiandan_web import app
 from jiandan_web.controller import case_from_request
 from datacenter.duanzi_web_service import get_duanzi_by_page
 from datacenter.duanzi_web_service import total_counts
-from datacenter.duanzi_web_service import get_oneday_100zan_req
-from datacenter.duanzi_web_service import get_key_when_no_today_key
 from util.jsonutil import json_to_list
 
 
